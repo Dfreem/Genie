@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genie", "Genie\Genie.csproj", "{E72D105A-1926-4C31-B750-FC415338872F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenieTests", "GenieTests\GenieTests.csproj", "{3D60BC9B-3007-4449-BC6E-BBA4233D4959}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E72D105A-1926-4C31-B750-FC415338872F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E72D105A-1926-4C31-B750-FC415338872F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E72D105A-1926-4C31-B750-FC415338872F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E72D105A-1926-4C31-B750-FC415338872F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D60BC9B-3007-4449-BC6E-BBA4233D4959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D60BC9B-3007-4449-BC6E-BBA4233D4959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D60BC9B-3007-4449-BC6E-BBA4233D4959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D60BC9B-3007-4449-BC6E-BBA4233D4959}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8985903B-1660-4865-986C-D2D9FB5462AF}
+	EndGlobalSection
+EndGlobal

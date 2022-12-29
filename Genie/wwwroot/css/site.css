@@ -1,0 +1,112 @@
+﻿/* CSS HEX */
+:root {
+    --bg-main: #E9D8A6;
+    --theme-primary: #0A9396;
+    --theme-secondary: #BB3E03;
+    --theme-tertiary: #9C2250;
+    --theme-highlite: #EE9B00;
+    --theme-primary-dark: #005F73;
+    --theme-secondary-dark: #AE2012;
+    --theme-tertiary-dark: #5F2261;
+    --theme-primary-light: #94D2BD;
+    --theme-secondary-light: #CA6702;
+    --theme-tertiary-light: #5A229B;
+}
+
+html {
+    font-size: 14px;
+    padding: 0;
+    max-width: 800px;
+}
+
+body {
+    background-color: var(--bg-main);
+    margin: auto;
+}
+
+.toolbar-left {
+    left: 0;
+    margin: 0;
+    position: absolute;
+    background-color: #0A9396;
+    width: 200px;
+    height: 100vh;
+}
+
+.btn-theme-primary {
+    background-color: var(--theme-primary-light);
+    color: var(--theme-secondary-dark);
+    outline: 2px var(--theme-highlite) solid;
+}
+
+.genie-pic {
+    position:fixed;
+    width: 20em;
+    bottom: 18em;
+    left: 42em;
+    clip-path: circle(10em);
+}
+
+.sticky-bottom {
+    margin-bottom: 4em;
+    position: fixed;
+    bottom: 0;
+}
+.response-container {
+    left:2em;
+/*    top:2em;*/
+    opacity:60%;
+    position:relative;
+    text-align:center;
+}
+.response-text {
+    max-width:250px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    max-height:200px;
+    overflow:scroll;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size:18px;
+}
+.convo-pic {
+    transform:rotateY(180deg);
+    width:420px;
+}
+
+.user-input {
+    max-width:30em;
+    max-height:16em;
+    background-color: var(--theme-primary-light);
+    border-radius:15px;
+    padding:1em;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size:20px;
+}
+
+.user-container {
+    opacity:70%;
+    left:15em;
+    width:fit-content;
+    align-self:center;
+}
+
+.convo-container {
+    position:fixed;
+    min-width:300px;
+    max-width:350px;
+    min-height:100vh;
+    max-height:100vh;
+    top:0em;
+    right:0em;
+    background-color:#aaaaaa;
+    opacity:60%;
+}
+
+.erase-button {
+    transform-origin:50% 50%;
+    position:absolute;
+    right:40%;
+    bottom:4em;
+}
