@@ -6,26 +6,27 @@
     // TODO re-hide, transition speach-bubble
     string hideIt = Model.Response is null ? "visually-hidden" : " ";
 }
-<div class="convo-container">
-    @if (@Model.Convo is not null)
-    {
-        @foreach (Volley piece in @Model.Convo)
+<div class="convo-wrapper">
+    <div class="convo-container">
+        @if (@Model.Convo is not null)
         {
-            <div class="card convo-item">
-                <div class="card-header">
-                    @piece.Question
+            @foreach (Volley piece in @Model.Convo)
+            {
+                <div class="card convo-item">
+                    <div class="card-header">
+                        @piece.Question
+                    </div>
+                    <div class="card-body">
+                        @piece.Answer
+                    </div>
                 </div>
-                <div class="card-body">
-                    @piece.Answer
-                </div>
-            </div>
+            }
         }
-    }
-    <div class="erase-button">
-        <a asp-page-handler="BlankConvo" asp-page="/Index" class="btn btn-theme-primary rounded-pill">Erase</a>
+        <div class="erase-button">
+            <a asp-page-handler="BlankConvo" asp-page="/Index" class="btn btn-theme-primary rounded-pill">Erase</a>
+        </div>
     </div>
 </div>
-
 <div class="outter-container  @hideIt">
     <div class="response-container container" id="response-bubble">
         <img src="~/images/caption_bubble.png" class="convo-pic" />

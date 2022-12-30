@@ -8,5 +8,10 @@ public class Volley
     public int ConversationID { get; set; }
     public string Question { get; set; } = "Q:";
     public string Answer { get; set; } = "A";
+
+    public override string ToString()
+    {
+        return "\n" + Question + "\n" + Answer + "\n";
+    }
 }
 

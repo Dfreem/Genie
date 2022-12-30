@@ -104,6 +104,18 @@ body {
     opacity:60%;
 }
 
+.convo-wrapper {
+    position: fixed;
+    min-width: 300px;
+    max-width: 350px;
+    min-height: 100vh;
+    max-height: 100vh;
+    top: 0em;
+    right: 0em;
+    background-color: #aaaaaa;
+    opacity: 60%;
+}
+
 .erase-button {
     transform-origin:50% 50%;
     position:absolute;

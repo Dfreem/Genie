@@ -8,9 +8,11 @@ public class HomeController : Controller
     readonly TheGenie _genie;
     readonly OpenAIAPI _openAi;
     readonly IConfiguration _config;
+    GenieDBContext _context;
 
-    public HomeController(ILogger<HomeController> logger, IServiceProvider services, IConfiguration config)
+    public HomeController(ILogger<HomeController> logger, IServiceProvider services, IConfiguration config, GenieDBContext context)
     {
+        _context = context;
         _logger = logger;
         _services = services;
         _config = config;
@@ -57,15 +59,14 @@ public class HomeController : Controller
     public Conversation GetStoredConvo()
     {
         Conversation convo = new();
-        var list = JsonSerializer.Deserialize<List<string>>(_config["convo"]);
+        string list = _config["convo"];
         // Chunck apart the list by pairs and create a volley.
-        for (int i = 1; i < list?.Count; i += 2)
+        List<string> splits = list.Split(new[] { 'Q', 'A', ':' },
+            StringSplitOptions.RemoveEmptyEntries |
+            StringSplitOptions.TrimEntries).ToList();
+        for (int i = 1; i < splits.Count; i+=2)
         {
-            // loop starts at one and looks backwards by one so that it won't go out of bounds.
-            Volley holder = new() { Question = list[i], Answer = list[i - 1] };
-
-            //add whatever is found to current conversation.
-            convo.Add(holder);
+            convo.Add(new Volley() { Question = splits[i - 1], Answer = splits[i] });
         }
         return convo;
     }
@@ -73,7 +74,7 @@ public class HomeController : Controller
     {
         Volley volley = new() { Question = ask, Answer = response };
         _genie.Convo.Add(volley);
-        JsonSerializer.Serialize(_genie.Convo);
+        System.IO.File.AppendAllText("./Data/Files/convo.txt", volley.ToString());
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

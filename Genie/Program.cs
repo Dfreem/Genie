@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Configuration.AddInMemoryCollection(new Dictionary<string, string>()
     {
                 { "prompt", File.ReadAllText("./Data/Files/genie.txt") },
-                { "convo", File.ReadAllText("./Data/Files/convo.json") }
+                { "convo", File.ReadAllText("./Data/Files/convo.txt") }
     });
 
 builder.Services
