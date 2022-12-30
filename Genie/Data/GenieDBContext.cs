@@ -4,4 +4,9 @@ public class GenieDBContext : DbContext
 {
     DbSet<Volley> Volleys { get; set; } = default!;
     DbSet<Conversation> Conversations { get; set; }
+
+    public GenieDBContext(DbContextOptions<GenieDBContext> options)
+    {
+
+    }
 }

@@ -14,17 +14,15 @@ public class HomeController : Controller
         _logger = logger;
         _services = services;
         _config = config;
-        _openAi = _services.CreateAsyncScope().ServiceProvider.GetRequiredService<OpenAIAPI>();
+        _openAi = new(_config["Settings:openai-key"], Engine.Davinci);
         _genie = _services.GetRequiredService<TheGenie>();
+        _genie.Prompt = _config["prompt"];
+        _genie.Convo = GetStoredConvo();
     }
 
     public IActionResult Index()
     {
-        // load the conversation from the json file loaded into the configuration container.
-        var jsonData = JsonConvert.DeserializeObject<Conversation>(_config["convo"]);
-
-        // check for null then set current conversation to retrieved data.
-        if (jsonData is not null) _genie.Convo = jsonData;
+        
         return View(_genie);
     }
 
@@ -33,42 +31,49 @@ public class HomeController : Controller
         return View();
     }
     [HttpPost]
-    public IActionResult AskGenie(string userInput)
+    public async Task<IActionResult> AskGenie(string userInput)
     {
         string[] stops = new string[] { "Friend:", "|" };
-        _genie.Prompt = System.IO.File.ReadAllTextAsync("./Data/convo.txt") + userInput;
-        _genie.Response = _openAi.Completions.CreateAndFormatCompletion(new CompletionRequest(
+         _genie.UserInput += userInput + "|";
+        CompletionResult completion = await _openAi.Completions.CreateCompletionAsync(new CompletionRequest(
             _genie.Prompt,
             max_tokens: 300,
-            temperature: .7,
+            temperature: .6,
             top_p: 1.0,
-            presencePenalty: 0.4,
-            frequencyPenalty: 0.4,
+            presencePenalty: 0.5,
+            frequencyPenalty: 0.5,
             stopSequences: stops
-            )).Result.ToString();
-        return Ok(_genie.Response);
+            ));
+        _genie.UserInput = userInput;
+        _genie.Response = completion.ToString();
+        StoreVolley(_genie.UserInput, _genie.Response);
+        return View("Index", _genie);
     }
     /// <summary>
     /// retrieve if exists, conversation stored in convo.json
     /// </summary>
-    /// <returns></returns>
-    public IActionResult GetStoredConvo()
+    /// <returns>a <see cref="Conversation"/> with any <see cref="Volley"/>
+    /// that is found in the convo.json file.</returns>
+    public Conversation GetStoredConvo()
     {
-        // if there is no current conversation yet, look for something in convo.json, 
-        if (!_genie.Convo.Any())
+        Conversation convo = new();
+        var list = JsonSerializer.Deserialize<List<string>>(_config["convo"]);
+        // Chunck apart the list by pairs and create a volley.
+        for (int i = 1; i < list?.Count; i += 2)
         {
-            List<string>? convo = JsonConvert.DeserializeObject<List<string>>(_config["convo"]);
-            // Chunck apart the list by pairs and create a volley.
-            for (int i = 1; i < convo?.Count; i += 2)
-            {
-                // loop starts at one and looks backwards by one so that it won't go out of bounds.
-                Volley holder = new() { Question = convo[i], Answer = convo[i - 1] };
+            // loop starts at one and looks backwards by one so that it won't go out of bounds.
+            Volley holder = new() { Question = list[i], Answer = list[i - 1] };
 
-                //add whatever is found to current conversation.
-                _genie.Convo.Add(holder);
-            }
+            //add whatever is found to current conversation.
+            convo.Add(holder);
         }
-        return View("Index", _genie);
+        return convo;
+    }
+    public void StoreVolley(string ask, string response)
+    {
+        Volley volley = new() { Question = ask, Answer = response };
+        _genie.Convo.Add(volley);
+        JsonSerializer.Serialize(_genie.Convo);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

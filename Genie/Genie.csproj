@@ -24,4 +24,19 @@
     <Folder Include="Data\" />
     <Folder Include="Data\Files\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="Data\Files\convo.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="Data\Files\convo.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Data\Files\convo.json" />
+  </ItemGroup>
 </Project>

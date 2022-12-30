@@ -13,3 +13,5 @@ global using Newtonsoft.Json;
 global using System.Diagnostics;
 global using Microsoft.AspNetCore.Mvc;
 
+global using JsonSerializer = System.Text.Json.JsonSerializer;
+
