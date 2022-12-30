@@ -40,7 +40,8 @@ body {
 }
 
 .genie-pic {
-    position:fixed;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .6s;
+    position: fixed;
     width: 20em;
     bottom: 18em;
     left: 42em;
@@ -52,73 +53,105 @@ body {
     position: fixed;
     bottom: 0;
 }
+
 .response-container {
-    left:2em;
-/*    top:2em;*/
-    opacity:60%;
-    position:relative;
-    text-align:center;
+    left: 2em;
+    /*    top:2em;*/
+    opacity: 60%;
+    position: relative;
+    text-align: center;
 }
+
 .response-text {
-    max-width:250px;
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    max-height:200px;
-    overflow:scroll;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size:18px;
+    max-width: 250px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 200px;
+    overflow: scroll;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 18px;
 }
+
 .convo-pic {
-    transform:rotateY(180deg);
-    width:420px;
+    transform: rotateY(180deg);
+    width: 420px;
 }
 
 .user-input {
-    max-width:30em;
-    max-height:16em;
+    max-width: 30em;
+    max-height: 16em;
     background-color: var(--theme-primary-light);
-    border-radius:15px;
-    padding:1em;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-size:20px;
+    border-radius: 15px;
+    padding: 1em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
 }
 
 .user-container {
-    opacity:70%;
-    left:15em;
-    width:fit-content;
-    align-self:center;
-}
-
-.convo-container {
-    position:fixed;
-    min-width:300px;
-    max-width:350px;
-    min-height:100vh;
-    max-height:100vh;
-    top:0em;
-    right:0em;
-    background-color:#aaaaaa;
-    opacity:60%;
+    opacity: 70%;
+    left: 15em;
+    width: fit-content;
+    align-self: center;
 }
 
 .convo-wrapper {
     position: fixed;
-    min-width: 300px;
+    min-width: 320px;
+    max-width: 320px;
+    min-height: 95vh;
+    max-height: 95vh;
+    top: 0em;
+    right: 0em;
+    overflow: hidden;
+    margin: 20px;
+    outline: 20px var(--theme-primary-dark) solid;
+}
+
+.convo-container {
+    background-color: #aaaaaa;
+    position: absolute;
     max-width: 350px;
-    min-height: 100vh;
     max-height: 100vh;
     top: 0em;
     right: 0em;
-    background-color: #aaaaaa;
-    opacity: 60%;
+    overflow: scroll;
 }
 
 .erase-button {
-    transform-origin:50% 50%;
-    position:absolute;
-    right:40%;
-    bottom:4em;
+    position: absolute;
+    right:8em;
+    bottom: 4em;
+}
+
+@media (max-width:976px) {
+    .genie-pic {
+        transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+        position: fixed;
+        width: 10em;
+        bottom: 5em;
+        left: 2em;
+        clip-path: circle(5em);
+    }
+    .user-container {
+        min-width:160px;
+        max-width:160px;
+        max-height:60vh;
+        min-height:60vh;
+        left:2em;
+        top:4em;
+    }
+    .user-input {
+        margin:unset;
+        min-width: unset;
+        max-width: unset;
+        max-height: 60vh;
+        min-height: 60vh;
+    }
+    .toolbar-left {
+        width:100vw;
+        z-index:-1;
+        opacity:100%;
+    }
 }
