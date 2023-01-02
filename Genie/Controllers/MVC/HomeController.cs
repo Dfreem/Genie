@@ -3,28 +3,26 @@ namespace Genie.Controllers;
 
 public class HomeController : Controller
 {
+    const string CONVO_FILE = "./Data/Files/convo.txt";
     private readonly ILogger<HomeController> _logger;
     readonly IServiceProvider _services;
     readonly TheGenie _genie;
     readonly OpenAIAPI _openAi;
     readonly IConfiguration _config;
-    GenieDBContext _context;
 
-    public HomeController(ILogger<HomeController> logger, IServiceProvider services, IConfiguration config, GenieDBContext context)
+    public HomeController(ILogger<HomeController> logger, IServiceProvider services, IConfiguration config)
     {
-        _context = context;
         _logger = logger;
         _services = services;
         _config = config;
         _openAi = new(_config["Settings:openai-key"], Engine.Davinci);
         _genie = _services.GetRequiredService<TheGenie>();
         _genie.Prompt = _config["prompt"];
-        _genie.Convo = GetStoredConvo();
     }
 
     public IActionResult Index()
     {
-        
+        _genie.Convo = GenieHelper.ToConversation(_config["convo"]);
         return View(_genie);
     }
 
@@ -35,8 +33,9 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> AskGenie(string userInput)
     {
+        _genie.UserInput = userInput;
         string[] stops = new string[] { "Friend:", "|" };
-         _genie.UserInput += userInput + "|";
+        _genie.Prompt += _genie.UserInput + "Compooter Genie:" + "|";
         CompletionResult completion = await _openAi.Completions.CreateCompletionAsync(new CompletionRequest(
             _genie.Prompt,
             max_tokens: 300,
@@ -46,35 +45,30 @@ public class HomeController : Controller
             frequencyPenalty: 0.5,
             stopSequences: stops
             ));
-        _genie.UserInput = userInput;
         _genie.Response = completion.ToString();
-        StoreVolley(_genie.UserInput, _genie.Response);
+        Volley v = GenieHelper.ToVolley(_genie.UserInput, _genie.Response);
+        _genie.Convo.Add(v);
+        GenieHelper.StoreVolley(v, CONVO_FILE);
+        _genie.UserInput = "";
         return View("Index", _genie);
     }
     /// <summary>
-    /// retrieve if exists, conversation stored in convo.json
+    /// Called in response to the Erase button being pushed. Erase the current conversation from memory.
+    /// If stored in a DB by this point, this will not remove the record.
     /// </summary>
-    /// <returns>a <see cref="Conversation"/> with any <see cref="Volley"/>
-    /// that is found in the convo.json file.</returns>
-    public Conversation GetStoredConvo()
+    /// <returns>Index View.</returns>
+    public IActionResult BlankConvo()
     {
-        Conversation convo = new();
-        string list = _config["convo"];
-        // Chunck apart the list by pairs and create a volley.
-        List<string> splits = list.Split(new[] { 'Q', 'A', ':' },
-            StringSplitOptions.RemoveEmptyEntries |
-            StringSplitOptions.TrimEntries).ToList();
-        for (int i = 1; i < splits.Count; i+=2)
-        {
-            convo.Add(new Volley() { Question = splits[i - 1], Answer = splits[i] });
-        }
-        return convo;
+        _genie.Convo = new();
+        System.IO.File.WriteAllText(CONVO_FILE, "");
+        return View("Index", _genie);
     }
-    public void StoreVolley(string ask, string response)
+
+    public void DownloadConvo()
     {
-        Volley volley = new() { Question = ask, Answer = response };
-        _genie.Convo.Add(volley);
-        System.IO.File.AppendAllText("./Data/Files/convo.txt", volley.ToString());
+        Response.ContentType = "txt/plain";
+        Response.SendFileAsync(CONVO_FILE);
+       
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

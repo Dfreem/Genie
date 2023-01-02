@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="toolbar-left d-flex">
-       
+    <div class="toolbar-left d-flex flex-column-reverse">
+        <a asp-action="DownloadConvo" asp-controller="Home" class="btn btn-theme-primary rounded-pill mx-auto"><i class="bi bi-download"></i></a>
     </div>
     <main role="main">
         @RenderBody()
     </main>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

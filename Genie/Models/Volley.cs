@@ -6,12 +6,12 @@ public class Volley
 {
     public int VolleyID { get; set; }
     public int ConversationID { get; set; }
-    public string Question { get; set; } = "Q:";
-    public string Answer { get; set; } = "A";
+    public string Question { get; set; } = "";
+    public string Answer { get; set; } = "";
 
     public override string ToString()
     {
-        return "\n" + Question + "\n" + Answer + "\n";
+        return Question + "\n" + Answer + "\n\n";
     }
 }
 

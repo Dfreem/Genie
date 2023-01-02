@@ -1,16 +1,28 @@
-﻿/* CSS HEX */
+﻿@import url('https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap');
+/*font-family: 'Yeon Sung', cursive;
+*/
+/* CSS HEX */
 :root {
-    --bg-main: #E9D8A6;
-    --theme-primary: #0A9396;
-    --theme-secondary: #BB3E03;
-    --theme-tertiary: #9C2250;
-    --theme-highlite: #EE9B00;
-    --theme-primary-dark: #005F73;
-    --theme-secondary-dark: #AE2012;
-    --theme-tertiary-dark: #5F2261;
-    --theme-primary-light: #94D2BD;
-    --theme-secondary-light: #CA6702;
-    --theme-tertiary-light: #5A229B;
+    /*theme colors*/
+    --theme-dark: #562c2cff;
+    --portland-orange: #f2542dff;
+    --wheat: #f5dfbbff;
+    --viridian-green: #0e9594ff;
+    --skobeloff: #127475ff;
+    --black: #000000ff;
+    --granite-gray: #66666eff;
+    --manatee: #9999a1ff;
+    --platinum: #e6e6e9ff;
+    --cultured: #f4f4f6ff;
+    --theme-900: #001f54;
+    --theme-800: #461220;
+    --theme-700: var(--granite-gray);
+    --theme-600: #717744;
+    --theme-500: var(--skobeloff);
+    --theme-400: var(--portland-orange);
+    --theme-300: var(--viridian-green);
+    --theme-200: #ccfccb;
+    --theme-100: var(--wheat);
 }
 
 html {
@@ -20,138 +32,238 @@ html {
 }
 
 body {
-    background-color: var(--bg-main);
+    background-color: var(--theme-100);
     margin: auto;
 }
 
 .toolbar-left {
     left: 0;
     margin: 0;
+    padding-block:4em;
     position: absolute;
-    background-color: #0A9396;
+    background-color: var(--theme-dark);
     width: 200px;
     height: 100vh;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
 }
 
 .btn-theme-primary {
-    background-color: var(--theme-primary-light);
-    color: var(--theme-secondary-dark);
-    outline: 2px var(--theme-highlite) solid;
+    background-color: var(--granite-gray);
+    color: var(--cultured);
+    font-size: 20px;
+    font-family: 'Futura', 'Roboto', 'Yeon Sung', cursive;
+    font-weight: 800;
+    padding: 0.5em;
+    width: min-content;
+    height: fit-content;
+    outline: 2px var(--portland-orange) solid;
+}
+
+.btn-theme-primary:hover{
+    outline-color: var(--theme-200);
+    color:var(--theme-400);
 }
 
 .genie-pic {
     transition: all cubic-bezier(.76,-0.22,.76,.24) .6s;
     position: fixed;
     width: 20em;
-    bottom: 18em;
-    left: 42em;
+    top: 18em;
+    left: 40%;
     clip-path: circle(10em);
+    z-index: 1;
 }
 
 .sticky-bottom {
     margin-bottom: 4em;
     position: fixed;
     bottom: 0;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
 }
 
 .response-container {
-    left: 2em;
     /*    top:2em;*/
-    opacity: 60%;
+    max-width: 420px;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+}
+
+.response-wrapper {
+    z-index: 2;
+    left: 20em;
+    padding: 1em;
     position: relative;
-    text-align: center;
+    overflow: hidden;
+    max-width: 430px;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
 }
 
 .response-text {
-    max-width: 250px;
-    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    min-width: 450px;
     max-height: 200px;
-    overflow: scroll;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    position: absolute;
+    margin-inline-start: 4em;
+    padding-inline-end: 7em;
+    scroll-padding: 2em;
+    overflow-y: scroll;
+    transform: translate(-50%, -50%);
     font-size: 18px;
+    font-family: 'Yeon Sung', cursive;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
 }
 
 .convo-pic {
-    transform: rotateY(180deg);
-    width: 420px;
+    transform: rotateY(180deg) translateX(20px);
+    width: 440px;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+    opacity: 0.6;
 }
 
 .user-input {
-    max-width: 30em;
-    max-height: 16em;
-    background-color: var(--theme-primary-light);
+    background-color: var(--theme-dark);
+    color: var(--platinum);
     border-radius: 15px;
     padding: 1em;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 450px;
+    height: 220px;
     font-size: 20px;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
 }
+
 
 .user-container {
     opacity: 70%;
     left: 15em;
-    width: fit-content;
-    align-self: center;
+    bottom: 0em;
+    position: fixed;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+    margin-bottom: 4em;
+    /*    align-self: center;*/
 }
 
 .convo-wrapper {
-    position: fixed;
-    min-width: 320px;
-    max-width: 320px;
-    min-height: 95vh;
-    max-height: 95vh;
+    position: absolute;
+    min-width: 420px;
+    max-width: 420px;
+    min-height: 96vh;
+    max-height: 97vh;
+    background-color: var(--theme-800);
     top: 0em;
     right: 0em;
     overflow: hidden;
     margin: 20px;
-    outline: 20px var(--theme-primary-dark) solid;
+    outline: 20px var(--theme-900) solid;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
 }
 
 .convo-container {
-    background-color: #aaaaaa;
-    position: absolute;
-    max-width: 350px;
-    max-height: 100vh;
     top: 0em;
     right: 0em;
-    overflow: scroll;
+    height: 80vh;
+    max-height: 100vh;
+    min-width: 440px;
+    position: relative;
+    padding-right: 0;
+    overflow-y: scroll;
+    box-sizing: content-box;
+    transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+    background-color: var(--theme-700);
+    opacity:70%;
 }
 
 .erase-button {
     position: absolute;
-    right:8em;
+    right: 40%;
     bottom: 4em;
+    text-anchor: end;
+}
+.convo-item {
+    background-color: var(--cultured);
+    opacity:100%;
 }
 
-@media (max-width:976px) {
+.convo-item > .card-header {
+    background-color: var(--theme-300);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 1em;
+    color: var(--theme-200);
+}
+
+    .convo-item > .card-header::first-letter {
+        text-transform: capitalize;
+    }
+
+    .convo-item > .card-body {
+        background-color: var(--theme-200);
+        text-indent: 1em;
+        color: var(--theme-300);
+        font-size: 18px;
+        font-weight:800;
+        font-family: 'Yeon Sung', cursive;
+    }
+
+@media (max-width:1100px) {
     .genie-pic {
         transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
         position: fixed;
         width: 10em;
-        bottom: 5em;
-        left: 2em;
+        top: 5em;
+        left: 20%;
         clip-path: circle(5em);
     }
+
     .user-container {
-        min-width:160px;
-        max-width:160px;
-        max-height:60vh;
-        min-height:60vh;
-        left:2em;
-        top:4em;
+        transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+        min-width: 400px;
+        max-width: 400px;
+        left: 2em;
+        bottom: 2em;
     }
-    .user-input {
-        margin:unset;
-        min-width: unset;
-        max-width: unset;
-        max-height: 60vh;
-        min-height: 60vh;
-    }
+
     .toolbar-left {
-        width:100vw;
-        z-index:-1;
-        opacity:100%;
+        transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+        width: 100vw;
+        z-index: -1;
+        opacity: 100%;
+        background-color:var(--theme-dark);
+    }
+
+    .convo-pic {
+        visibility: collapse;
+        transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+    }
+
+    .response-wrapper {
+        transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+        position: relative;
+        top: 20em;
+        left: 2em;
+        background-color: #00000066;
+        max-height: 200px;
+        border-radius: 20px;
+    }
+
+    .response-container {
+        height: 200px;
+        position: absolute;
+        width: fit-content;
+    }
+
+    .response-text {
+        height: 200px;
+        transition: all cubic-bezier(.76,-0.22,.76,.24) .7s;
+        color: blanchedalmond;
+        transform: none;
+        overflow-y: scroll;
+        left: unset;
+        width: 200px;
+        padding-inline-end: 3em;
+        margin: 1em;
+        margin-top: 1em;
+        position: relative;
     }
 }

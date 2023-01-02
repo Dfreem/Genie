@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "Genie";
 
-    // if there is no response yet, hide the speech bubble
-    // TODO re-hide, transition speach-bubble
     string hideIt = Model.Response is null ? "visually-hidden" : " ";
 }
 <div class="convo-wrapper">
@@ -22,22 +20,27 @@
                 </div>
             }
         }
+
     </div>
+
     <div class="erase-button">
-        <a asp-page-handler="BlankConvo" asp-page="/Index" class="btn btn-theme-primary rounded-pill">Erase</a>
+        <a asp-action="BlankConvo" asp-controller="Home" class="btn btn-theme-primary rounded-pill">Erase</a>
     </div>
 </div>
-<div class="outter-container  @hideIt">
-    <div class="response-container container" id="response-bubble">
-        <img src="~/images/caption_bubble.png" class="convo-pic" />
-        <div class="response-text">@Model.Response</div>
+<div class="response-wrapper">
+    <div class="outer-container  @hideIt">
+        <div class="response-container" id="response-bubble">
+            <img src="~/images/caption_bubble.png" class="convo-pic" />
+        </div>
     </div>
+    <div class="response-text">@Model.Response</div>
 </div>
+@*<a asp-action="Say" asp-controller="Home" asp-route-toSay="@Model.Response">*@
 <img src="~/images/genie1.png" class="genie-pic" />
-<div class="sticky-bottom container user-container">
+@*</a>*@
+<div class=" container user-container">
     <form method="post" asp-action="AskGenie" asp-controller="Home">
         <textarea class="user-input" asp-for="@Model.UserInput" placeholder="Enter message to genie"></textarea>
-        <input type="submit" />
+        <input type="submit" class="btn btn-theme-primary rounded-pill" />
     </form>
 </div>
-<link href="~/js/site.js" />
