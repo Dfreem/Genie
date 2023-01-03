@@ -35,24 +35,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\MVC\" />
-    <Folder Include="wwwroot\Data\" />
     <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\Data\.DS_Store" />
-    <None Include="wwwroot\Data\Files\convo.txt">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </None>
-    <None Include="wwwroot\Data\Files\genie.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Remove="Data\Files\convo.json" />
-    <Content Remove="wwwroot\Data\.DS_Store" />
-    <Content Remove="wwwroot\Data\Files\convo.txt" />
-    <Content Remove="wwwroot\Data\Files\genie.txt" />
-    <Content Remove="wwwroot\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\Object\VoiceController.cs" />

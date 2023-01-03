@@ -3,7 +3,7 @@ namespace Genie.Controllers;
 
 public class HomeController : Controller
 {
-    const string CONVO_FILE = "./Data/Files/convo.txt";
+    const string CONVO_FILE = "./Data/convo.txt";
     private readonly ILogger<HomeController> _logger;
     readonly IServiceProvider _services;
     readonly TheGenie _genie;
