@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Data\Files\convo.json" />
+    <Content Remove="appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\Object\VoiceController.cs" />
