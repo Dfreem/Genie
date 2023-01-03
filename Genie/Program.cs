@@ -4,11 +4,6 @@ using Microsoft.Extensions.Configuration;
 var builder = WebApplication.CreateBuilder();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Configuration.AddInMemoryCollection(new Dictionary<string, string>()
-{
-    { "prompt", File.ReadAllText("./Data/genie.txt") },
-    { "convo", File.ReadAllText("./Data/convo.txt") }
-});
 
 builder.Services
         //.AddDbContext<GenieDBContext>(options =>

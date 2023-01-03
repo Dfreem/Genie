@@ -19,8 +19,8 @@
     <None Remove="System.Speech" />
     <None Remove="Microsoft.CognitiveServices.Speech" />
     <None Remove="Data\" />
-    <None Remove="Data\convo.txt" />
     <None Remove="Data\genie.txt" />
+    <None Remove="Data\convo.txt" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
@@ -46,11 +46,20 @@
     <Compile Remove="Data\GenieDBContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\convo.txt">
+    <None Update="Data\convo.txt">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Data\genie.txt" />
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\convo.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\genie.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

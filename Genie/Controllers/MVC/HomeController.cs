@@ -15,14 +15,14 @@ public class HomeController : Controller
         _logger = logger;
         _services = services;
         _config = config;
-        _openAi = new(_config["Settings:openai-key"], Engine.Davinci);
+        _openAi = new(System.Environment.GetEnvironmentVariable("API_KEY"), Engine.Davinci);
         _genie = _services.GetRequiredService<TheGenie>();
-        _genie.Prompt = _config["prompt"];
+        _genie.Prompt = System.IO.File.ReadAllText("./Data/genie.txt");
     }
 
     public IActionResult Index()
     {
-        _genie.Convo = GenieHelper.ToConversation(_config["convo"]);
+        _genie.Convo = GenieHelper.ToConversation(System.IO.File.ReadAllText(CONVO_FILE));
         return View(_genie);
     }
 
@@ -39,10 +39,10 @@ public class HomeController : Controller
         CompletionResult completion = await _openAi.Completions.CreateCompletionAsync(new CompletionRequest(
             _genie.Prompt,
             max_tokens: 300,
-            temperature: .6,
+            temperature: .7,
             top_p: 1.0,
-            presencePenalty: 0.5,
-            frequencyPenalty: 0.5,
+            presencePenalty: 0.4,
+            frequencyPenalty: 0.6,
             stopSequences: stops
             ));
         _genie.Response = completion.ToString();
@@ -60,6 +60,8 @@ public class HomeController : Controller
     public IActionResult BlankConvo()
     {
         _genie.Convo = new();
+        _genie.Response = "";
+        _genie.UserInput = "";
         System.IO.File.WriteAllText(CONVO_FILE, "");
         return View("Index", _genie);
     }

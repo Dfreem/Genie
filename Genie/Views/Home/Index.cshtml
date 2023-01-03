@@ -38,7 +38,7 @@
 @*<a asp-action="Say" asp-controller="Home" asp-route-toSay="@Model.Response">*@
 <img src="~/images/genie1.png" class="genie-pic" />
 @*</a>*@
-<div class=" container user-container">
+<div class=" user-container">
     <form method="post" asp-action="AskGenie" asp-controller="Home">
         <textarea class="user-input" asp-for="@Model.UserInput" placeholder="Enter message to genie"></textarea>
         <input type="submit" class="btn btn-theme-primary rounded-pill" />
